@@ -1,3 +1,9 @@
 .DS_Store
 .claude/
 *.pdf
+website assets/*.jpg
+website assets/*.jpeg
+website assets/*.JPG
+website assets/*.png
+website assets/*.mp4
+!website assets/optimized/
