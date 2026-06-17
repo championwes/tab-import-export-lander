@@ -720,8 +720,8 @@ body {
       </div>
       <div class="footer-contact">
         <h4>Contact Info</h4>
-        <a href="mailto:agents@tab-llc.com">agents@tab-llc.com</a>
-        <a href="tel:3147143408">314-714-3408</a>
+        <a href="mailto:Michael.Height@tab-llc.com">Michael.Height@tab-llc.com</a>
+        <a href="tel:3147551637">(314) 755-1637</a>
         <p>4824 Park 370 Blvd<br>Hazelwood, MO 63042</p>
       </div>
     </div>
@@ -744,9 +744,11 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
+const FORM_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwLRUsT_B6qWrSzmudDCs7xh6biIpna9G97ZsXu4r1NhIaZEe0oYYYBGA0ueJHyPRU-Hw/exec';
 const form = document.getElementById('benchmarkForm');
 const formContainer = document.getElementById('formContainer');
 const formSuccess = document.getElementById('formSuccess');
+const submitBtn = form.querySelector('button[type="submit"]');
 form.addEventListener('submit', (e) => {
   e.preventDefault();
   let valid = true;
@@ -756,8 +758,23 @@ form.addEventListener('submit', (e) => {
     if (!input.value.trim()) { group.classList.add('has-error'); valid = false; }
     if (input.type === 'email' && input.value.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value.trim())) { group.classList.add('has-error'); valid = false; }
   });
-  if (valid) { form.style.display = 'none'; formSuccess.classList.add('active'); formContainer.querySelector('h3').style.display = 'none'; }
-  else { const e = form.querySelector('.has-error'); if (e) e.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+  if (!valid) { const e = form.querySelector('.has-error'); if (e) e.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Submitting...';
+  const data = {
+    company: form.company.value.trim(),
+    contact: form.contact.value.trim(),
+    email: form.email.value.trim(),
+    phone: form.phone.value.trim(),
+    origin: form.origin.value.trim(),
+    destination: form.destination.value.trim(),
+    container: form.container.value,
+    volume: form.volume.value.trim(),
+    notes: form.notes.value.trim()
+  };
+  fetch(FORM_ENDPOINT, { method: 'POST', body: JSON.stringify(data), mode: 'no-cors' })
+    .then(() => { form.style.display = 'none'; formSuccess.classList.add('active'); formContainer.querySelector('h3').style.display = 'none'; })
+    .catch(() => { form.style.display = 'none'; formSuccess.classList.add('active'); formContainer.querySelector('h3').style.display = 'none'; });
 });
 form.querySelectorAll('input, select, textarea').forEach(input => {
   input.addEventListener('input', () => input.closest('.form-group').classList.remove('has-error'));
