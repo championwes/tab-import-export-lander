@@ -104,10 +104,11 @@ body {
   background: linear-gradient(135deg, rgba(12,30,54,0.85) 0%, rgba(26,58,92,0.6) 50%, rgba(12,30,54,0.75) 100%);
   z-index: 1;
 }
-.hero-logos {
-  display: flex; align-items: center; gap: 20px; margin-bottom: 36px;
+.hero-title-row {
+  display: flex; align-items: center; gap: 36px; flex-wrap: wrap; margin-bottom: 20px;
 }
-.hero-logos img { height: 72px; width: auto; opacity: 0.95; }
+.hero-title-row h1 { margin-bottom: 0; }
+.hero-title-row img { height: clamp(96px, 13vw, 164px); width: auto; opacity: 0.95; }
 .hero-content { position: relative; z-index: 2; max-width: 700px; padding: 60px 0 160px; }
 .hero h1 {
   font-family: var(--font-display); font-size: clamp(48px, 6.5vw, 82px);
@@ -388,7 +389,6 @@ body {
   .footer-inner { grid-template-columns: 1fr; gap: 28px; }
   .hero-actions { flex-direction: column; }
   .btn { width: 100%; justify-content: center; }
-  .hero-logos img { height: 52px; }
   .nav-logos img { height: 44px; }
 }
 @media (max-width: 480px) {
@@ -439,10 +439,10 @@ body {
   <div class="hero-overlay"></div>
   <div class="container">
     <div class="hero-content">
-      <div class="hero-logos">
+      <div class="hero-title-row">
+        <h1>World Class.<br>Worldwide.</h1>
         <img src="website assets/optimized/tab-badge-white.png" alt="TAB - World Class Worldwide">
       </div>
-      <h1>World Class.<br>Worldwide.</h1>
       <p class="hero-sub">End-to-end international shipping by land, sea, and air.<br>Handled from origin to destination.</p>
       <p class="hero-body">Moving freight across borders doesn't need to be complicated. TAB delivers comprehensive import and export solutions designed to give you control, visibility, and confidence at every step of the journey. From full container loads to time-critical air freight, we manage the details so your cargo moves smoothly anywhere in the world.</p>
       <div class="hero-actions">
